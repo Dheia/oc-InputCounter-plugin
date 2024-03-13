@@ -16,6 +16,10 @@ var InputCounter = function($counter, options) {
         var max = optimalMaxLength || maxLength;
         var min = optimalMinLength || minLength;
 
+        if (maxLength && length > maxLength) {
+            max = maxLength;
+        }
+
         if (!max && !min) {
             $counter.text(length);
             return;
