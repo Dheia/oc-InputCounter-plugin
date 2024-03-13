@@ -1,20 +1,18 @@
-var InputCounter = function($field) {
+var InputCounter = function($counter, options) {
     var self = this;
-    var $counter = $('<div class="input-counter text-muted small"></div>');
-    var minLength = $field.data('min-length');
-    var maxLength = $field.data('max-length');
-    var optimalMinLength = $field.data('optimal-min-length');
-    var optimalMaxLength = $field.data('optimal-max-length');
+    var minLength = options.minLength;
+    var maxLength = options.maxLength;
+    var optimalMinLength = options.optimalMinLength;
+    var optimalMaxLength = options.optimalMaxLength;
 
-    $counter.insertBefore($field);
-    refresh();
+    self.refresh = refresh;
 
-    $field.on('input', refresh);
-    $(document).on('click', '[data-switch-locale]', refresh);
+    (function () {
+        refresh(0);
+    })();
 
-    function refresh()
+    function refresh(length)
     {
-        var length = $field.val().length;
         var max = optimalMaxLength || maxLength;
         var min = optimalMinLength || minLength;
 
@@ -44,8 +42,6 @@ var InputCounter = function($field) {
 
         $counter.addClass('text-success');
     }
-
-    self.refresh = refresh;
 };
 
 
@@ -59,6 +55,24 @@ $(document).render(function() {
             return;
         }
 
-        element.inputCounter = new InputCounter($(element));
+        var $counter = $('<div class="input-counter text-muted small"></div>');
+        var $element = $(element);
+
+        $counter.insertBefore($element);
+
+        element.inputCounter = new InputCounter($counter, {
+            minLength: $element.data('min-length'),
+            maxLength: $element.data('max-length'),
+            optimalMinLength: $element.data('optimal-min-length'),
+            optimalMaxLength: $element.data('optimal-max-length'),
+        });
+
+        function refreshCounter() {
+            element.inputCounter.refresh($element.val().length);
+        }
+
+        $element.on('input', refreshCounter);
+        $(document).on('click', '[data-switch-locale]', refreshCounter);
+        refreshCounter();
     });
 });
