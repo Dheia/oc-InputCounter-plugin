@@ -32,19 +32,19 @@ var InputCounter = function($counter, options) {
             $counter.text(length + ' > ' + min);
         }
 
-        $counter.removeClass('text-danger text-warning text-success');
+        $counter.removeClass('danger warning success');
 
-        if (length > maxLength || length < minLength) {
-            $counter.addClass('text-danger');
+        if ((maxLength && length > maxLength) || (minLength && length < minLength)) {
+            $counter.addClass('danger');
             return;
         }
 
-        if (length > optimalMaxLength || length < optimalMinLength) {
-            $counter.addClass('text-warning');
+        if ((optimalMaxLength && length > optimalMaxLength) || (optimalMinLength && length < optimalMinLength)) {
+            $counter.addClass('warning');
             return;
         }
 
-        $counter.addClass('text-success');
+        $counter.addClass('success');
     }
 };
 
@@ -59,7 +59,7 @@ $(document).render(function() {
             return;
         }
 
-        var $counter = $('<div class="input-counter text-muted small"></div>');
+        var $counter = $('<div class="input-counter small"></div>');
         var $element = $(element);
 
         $counter.insertBefore($element);

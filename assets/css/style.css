@@ -5,6 +5,7 @@
 
     border-radius: 3px;
     padding: 2px 5px;
+    color: #777;
 }
 
 .field-multilingual .input-counter {
@@ -13,17 +14,17 @@
     margin-bottom: 5px;
 }
 
-.input-counter.text-success {
+.input-counter.success {
     background-color: #31AC5F;
     color: white;
 }
 
-.input-counter.text-danger {
+.input-counter.danger {
     background-color: #CC3300;
     color: white;
 }
 
-.input-counter.text-warning {
+.input-counter.warning {
     background-color: #F0AD4E;
     color: white;
 }
