@@ -1,6 +1,7 @@
 <?php namespace Inetis\InputCounter;
 
 use App;
+use Backend\FormWidgets\RichEditor;
 use Backend\Widgets\Form;
 use Event;
 use System\Classes\PluginBase;
@@ -28,6 +29,10 @@ class Plugin extends PluginBase
         Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
             $controller->addCss("/plugins/inetis/inputcounter/assets/css/style.css");
             $controller->addJs("/plugins/inetis/inputcounter/assets/js/main.js");
+        });
+
+        RichEditor::extend(function ($controller) {
+            $controller->addJs("/plugins/inetis/inputcounter/assets/js/froala-plugin.js");
         });
 
         $this->registerCmsSeoRecommendation();
